@@ -1,12 +1,17 @@
 angular
-    .module('blog', ['ngSanitize'])
-    .controller('blog', ['$scope', function ($scope) {
+    .module('blog', ['ngSanitize', 'firebase'])
+    .controller('blog', ['$scope', '$firebase', function ($scope, $firebase) {
+
+        var entriesRef = new Firebase("https://rhbe8cr3bcu.firebaseio-demo.com/");
+
+        $scope.entries = $firebase(entriesRef);
         
-        $scope.entries = [];
+        //$scope.entries = [];
         $scope.entry = {};
 
         $scope.saveEntry = function () {
-            $scope.entries.push({title: $scope.entry.title, content: $scope.entry.content});
+            //$scope.entries.push({title: $scope.entry.title, content: $scope.entry.content});
+            $scope.entries.$add($scope.entry);
             console.log($scope.entries);
         }
 
@@ -17,7 +22,6 @@ angular
         }
     });
 
-    ;
 
 window.onload = function () {
 
