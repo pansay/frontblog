@@ -2,16 +2,43 @@
 <html>
     <head>
         <script src="js/angular.min.js"></script>
+        <script src="js/angular-sanitize.min.js"></script>
         <script src="js/main.js"></script>
 
     </head>
     <body>
+
         <div id="main" ng-controller="blog">
-          <label>Name:</label>
-          <input type="text" ng-model="yourName" placeholder="Enter a name here">
-          <hr>
-          <h1>Hello {{yourName}}!</h1>
-          <div ng-bind="test"></div>
+
+            <div id="edit">
+
+                <label>Title</label>
+                <input type="text" ng-model="entry.title" />
+
+                <label>Content</label>
+                <textarea ng-model="entry.content"></textarea>
+
+                <a href="#" ng-click="saveEntry()">save</a>
+
+            </div>
+
+            <div id="list">
+
+                <ul ng-repeat="e in entries track by $index">
+                    <li>
+                        
+                        <h2>{{e.title}}</h2>
+
+                        <div ng-bind-html="e.content | newlines"></div>
+
+                    </li>
+
+                </ul>
+
+
+            </div>
+
         </div>
+
     </body>
 </html>
